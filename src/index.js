@@ -13,19 +13,22 @@ class Sorter {
 
         for (let i = 0; i < itemsLength; i++) {
             let key = element[i] || element; // для каждого элемента создаём свойство
-            store[key] = key; //
+            store[key] = key;
         }
 
         if (this.elements.length == 0) {                    // Если элементов нету вообще,
-            this.elements = this.elements.concat(element);    // то добавить переданное в функции значение сразу
+            this.elements = this.elements.concat(element);    // то добавить переданное в функции значение сразу.
         } else {
             for (var i = 0; i < this.elements.length; i++) {
-                if (store[this.elements[i]]) {   // если новй переданный элемент уже имеется в массиве, то
-                    delete store[this.elements[i]]   // то удалить переданного
+                if (toString.call(this.elements[i]) == '[object Object]') { // Если переданный элемент объект, то не проверять
+                    break;                                                    // на повторы.
+                }
+                if (store[this.elements[i]]) {   // Если новй переданный элемент уже имеется в массиве, то
+                    delete store[this.elements[i]]   // то удалить переданного.
                 }
             }
-            for (let key in store) {     // записать в массив все элементы,очищенные выше от повторений
-                this.elements.push(+key)
+            for (let key in store) {     // Записать в массив все элементы,очищенные выше от повторений.
+                this.elements.push(store[key])
             }
         }
     }
